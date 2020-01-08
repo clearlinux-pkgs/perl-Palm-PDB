@@ -4,7 +4,7 @@
 #
 Name     : perl-Palm-PDB
 Version  : 1.400
-Release  : 10
+Release  : 11
 URL      : https://cpan.metacpan.org/authors/id/C/CJ/CJM/Palm-PDB-1.400.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/C/CJ/CJM/Palm-PDB-1.400.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libp/libpalm-pdb-perl/libpalm-pdb-perl_1.400-1.debian.tar.xz
@@ -12,6 +12,7 @@ Summary  : 'Parse Palm database files'
 Group    : Development/Tools
 License  : Artistic-1.0 Artistic-1.0-Perl GPL-1.0
 Requires: perl-Palm-PDB-license = %{version}-%{release}
+Requires: perl-Palm-PDB-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 
 %description
@@ -25,6 +26,7 @@ successors.
 Summary: dev components for the perl-Palm-PDB package.
 Group: Development
 Provides: perl-Palm-PDB-devel = %{version}-%{release}
+Requires: perl-Palm-PDB = %{version}-%{release}
 
 %description dev
 dev components for the perl-Palm-PDB package.
@@ -38,18 +40,28 @@ Group: Default
 license components for the perl-Palm-PDB package.
 
 
+%package perl
+Summary: perl components for the perl-Palm-PDB package.
+Group: Default
+Requires: perl-Palm-PDB = %{version}-%{release}
+
+%description perl
+perl components for the perl-Palm-PDB package.
+
+
 %prep
 %setup -q -n Palm-PDB-1.400
-cd ..
-%setup -q -T -D -n Palm-PDB-1.400 -b 1
+cd %{_builddir}
+tar xf %{_sourcedir}/libpalm-pdb-perl_1.400-1.debian.tar.xz
+cd %{_builddir}/Palm-PDB-1.400
 mkdir -p deblicense/
-mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Palm-PDB-1.400/deblicense/
+cp -r %{_builddir}/debian/* %{_builddir}/Palm-PDB-1.400/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -59,7 +71,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -68,7 +80,8 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-Palm-PDB
-cp LICENSE %{buildroot}/usr/share/package-licenses/perl-Palm-PDB/LICENSE
+cp %{_builddir}/Palm-PDB-1.400/LICENSE %{buildroot}/usr/share/package-licenses/perl-Palm-PDB/59364ee353b8eef9ab3c6c1a3566d16e64510a98
+cp %{_builddir}/Palm-PDB-1.400/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-Palm-PDB/6c4e749291f01703adf125727c16f2c2dcd7347f
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -81,8 +94,6 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/Palm/PDB.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Palm/Raw.pm
 
 %files dev
 %defattr(-,root,root,-)
@@ -91,4 +102,10 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-Palm-PDB/LICENSE
+/usr/share/package-licenses/perl-Palm-PDB/59364ee353b8eef9ab3c6c1a3566d16e64510a98
+/usr/share/package-licenses/perl-Palm-PDB/6c4e749291f01703adf125727c16f2c2dcd7347f
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/Palm/PDB.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Palm/Raw.pm
