@@ -4,7 +4,7 @@
 #
 Name     : perl-Palm-PDB
 Version  : 1.400
-Release  : 11
+Release  : 12
 URL      : https://cpan.metacpan.org/authors/id/C/CJ/CJM/Palm-PDB-1.400.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/C/CJ/CJM/Palm-PDB-1.400.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libp/libpalm-pdb-perl/libpalm-pdb-perl_1.400-1.debian.tar.xz
@@ -81,7 +81,7 @@ make TEST_VERBOSE=1 test
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-Palm-PDB
 cp %{_builddir}/Palm-PDB-1.400/LICENSE %{buildroot}/usr/share/package-licenses/perl-Palm-PDB/59364ee353b8eef9ab3c6c1a3566d16e64510a98
-cp %{_builddir}/Palm-PDB-1.400/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-Palm-PDB/6c4e749291f01703adf125727c16f2c2dcd7347f
+cp %{_builddir}/debian/copyright %{buildroot}/usr/share/package-licenses/perl-Palm-PDB/6c4e749291f01703adf125727c16f2c2dcd7347f
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -107,5 +107,5 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.30.1/Palm/PDB.pm
-/usr/lib/perl5/vendor_perl/5.30.1/Palm/Raw.pm
+/usr/lib/perl5/vendor_perl/5.30.2/Palm/PDB.pm
+/usr/lib/perl5/vendor_perl/5.30.2/Palm/Raw.pm
