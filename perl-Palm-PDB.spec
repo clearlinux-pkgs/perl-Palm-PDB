@@ -4,7 +4,7 @@
 #
 Name     : perl-Palm-PDB
 Version  : 1.400
-Release  : 19
+Release  : 20
 URL      : https://cpan.metacpan.org/authors/id/C/CJ/CJM/Palm-PDB-1.400.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/C/CJ/CJM/Palm-PDB-1.400.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libp/libpalm-pdb-perl/libpalm-pdb-perl_1.400-1.debian.tar.xz
